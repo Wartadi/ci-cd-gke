@@ -18,10 +18,10 @@ steps:
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args: 
-    - '-c'
-    | 
-    kubectl apply -f kubernetes/deployment.yaml
-    kubectl apply -f kubernetes/service.yaml
+      - '-c'
+      | 
+      kubectl apply -f kubernetes/deployment.yaml
+      kubectl apply -f kubernetes/service.yaml
 
 images:
   - 'gcr.io/automated-axis-428810-n4/fastapi-app:latest'
