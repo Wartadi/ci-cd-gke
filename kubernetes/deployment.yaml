@@ -18,7 +18,7 @@ spec:
       - name: fast-api
         image: gcr.io/automated-axis-428810-n4/fastapi-app:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         resources:
           requests:
             cpu: 200m
