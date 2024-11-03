@@ -7,5 +7,5 @@ spec:
     app: fast-api
   ports:
   - protocol: TCP
-    port: 8080
-    targetPort: 8080 #incoming traffic in 80 is going to go port 80
+    port: 80
+    targetPort: 80 #incoming traffic in 80 is going to go port 80
