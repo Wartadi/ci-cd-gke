@@ -1,27 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fast-api
+  name: fastapi-deployment
   labels:
-    app: fast-api
+    app: fastapi-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fast-api
+      app: fastapi-app
   template:
     metadata:
       labels:
-        app: fast-api
+        app: fastapi-app
     spec:
       containers:
-      - name: fast-api
-        image: gcr.io/automated-axis-428810-n4/fastapi-app:latest
-        ports:
-        - containerPort: 80
-        resources:
-          requests:
-            cpu: 200m
-            memory: 300Mi
-          limits:
-            memory: 400Mi
+        - name: fastapi-container
+          image: us-central1-docker.pkg.dev/upbeat-polygon-461418-g5/fastapi-repo/fastapi-app:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+            requests:
+             memory: "256Mi"
+             cpu: "250m"

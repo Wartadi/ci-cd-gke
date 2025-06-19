@@ -1,21 +1,22 @@
 options:
   logging: CLOUD_LOGGING_ONLY
+
 steps:
   # build docker image
-  - name: 'gcr.io/cloud-builders/docker' # image prebuilt oleh Google
-    args: ['build', '-t', 'gcr.io/automated-axis-428810-n4/fastapi-app:latest', '.']
-
-  # push image to container registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/automated-axis-428810-n4/fastapi-app:latest']
-    
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/upbeat-polygon-461418-g5/fastapi-repo/fastapi-app:latest', '.']
+
+  # push image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/upbeat-polygon-461418-g5/fastapi-repo/fastapi-app:latest']
+
   # authenticate to GKE
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        gcloud container clusters get-credentials ci-cd-cluster --zone us-central1 --project automated-axis-428810-n4
+        gcloud container clusters get-credentials ci-cd-cluster --zone us-central1-a --project upbeat-polygon-461418-g5
 
   # deploy to GKE
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -27,7 +28,4 @@ steps:
         kubectl apply -f kubernetes/service.yaml
 
 images:
-  - 'gcr.io/automated-axis-428810-n4/fastapi-app:latest'
-
-
-
+  - 'us-central1-docker.pkg.dev/upbeat-polygon-461418-g5/fastapi-repo/fastapi-app:latest'
